@@ -1,0 +1,84 @@
+* { 
+    margin: 0; padding: 0; box-sizing: border-box; 
+}
+
+body { 
+    font: 14px Helvetica, Arial; 
+}
+
+form { 
+
+}
+
+form input {
+    padding: 5px; 
+    width: 100%; 
+    margin-right: .5%; 
+    bottom: 100px;
+    border: 2px solid black;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+form button { 
+    padding: 5px 15px;
+    display: inline-block;
+    width: auto;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#header {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+#container {
+    position: relative;
+    height: 80%;
+    max-height: inherit;
+    overflow: auto;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#messages { 
+    padding: 0;
+    border: 0px;
+    position: static;
+}
+
+#messages li {
+    right: 10px;
+    border: none;
+    padding: 1px 10px; 
+    word-wrap: break-word;
+}
+
+#chat {
+    position: absolute;
+    right: 10px;
+    width: 300px;
+    height: 100%;
+    padding: 2px;
+    float: right;
+}
+
+#chat * {
+    margin: 5px 0;
+}
+
+#m {
+    width: 220px;
+}
+
+#player {
+    float: left;
+    position: absolute;
+    top: 50%;
+    margin-top: -200px;
+    padding-left: 50px;
+}
