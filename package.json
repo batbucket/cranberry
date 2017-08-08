@@ -1,13 +1,25 @@
 {
-  "name": "socket-chat-example",
-  "version": "0.0.1",
-  "description": "my first socket.io app",
+  "name": "cranberry",
+  "version": "1.0.0",
+  "description": "Synchronized YouTube player.",
+  "main": "client.js",
   "dependencies": {
     "express": "^4.15.2",
     "socket.io": "^2.0.3"
-  }
-    
+  },
+  "devDependencies": {},
   "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "start": "node server.js"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Sharr@bitbucket.org/eternitylabs/cranberry.git"
+  },
+  "keywords": [
+    "heroku"
+  ],
+  "author": "eternitylabs",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/eternitylabs/cranberry#readme"
 }
