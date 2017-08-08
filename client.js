@@ -1,3 +1,5 @@
+const VIDEO_TIME_SYNC_LEEWAY = 3;
+
 // 2. This code loads the IFrame Player API code asynchronously.
 var tag = document.createElement('script');
 
@@ -23,6 +25,7 @@ function onYouTubeIframeAPIReady() {
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
     event.target.playVideo();
+    isPlayerReady = true;
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -40,8 +43,10 @@ function stopVideo() {
     player.stopVideo();
 }
 
+var socket = io();
+var isPlayerReady;
+
 $(function() {
-    var socket = io();
     $('form').submit(function(){
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
@@ -53,8 +58,13 @@ $(function() {
     });
     
     socket.on('set video', function(video) {
-        console.log("client " + video);
-        player.loadVideoById(video);
-        player.playVideo();
+        if (isPlayerReady) {
+            if (player.getVideoData()['video_id'] != video.videoId) {
+                player.loadVideoById(video);
+            }
+            if (Math.abs(video.time - player.getCurrentTime()) > VIDEO_TIME_SYNC_LEEWAY) {
+                player.seekTo(video.time, true);
+            }
+        }
     });
 });
