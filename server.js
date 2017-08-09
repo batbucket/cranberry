@@ -16,6 +16,8 @@ io.on('connection', function(socket) {
         io.emit('chat message', msg);
         
         console.log("message " + msg);
+        
+        // Youtube link check
         var possibleID = getVideoID(msg);
         console.log("parsed " + possibleID);
         if (possibleID) {

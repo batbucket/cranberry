@@ -54,7 +54,16 @@ $(function() {
     });
 
     socket.on('chat message', function(msg) {
-        $('#messages').append($('<li>').text(msg));
+        var container = $('#container');
+        var shouldScrollDown = 
+            (container[0].scrollTop + container[0].clientHeight 
+             == container[0].scrollHeight);
+        
+        container.append('<div class=\'message\'>' + msg + '</div>');
+        
+        if (shouldScrollDown) {
+            container[0].scrollTop = container[0].scrollHeight;
+        }
     });
     
     socket.on('set video', function(video) {

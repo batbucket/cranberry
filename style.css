@@ -2,6 +2,13 @@
     margin: 0; padding: 0; box-sizing: border-box; 
 }
 
+.message {
+    right: 10px;
+    border: none;
+    padding: 1px 10px; 
+    word-wrap: break-word;
+}
+
 body { 
     font: 14px Helvetica, Arial; 
 }
@@ -43,19 +50,6 @@ form button {
     overflow: auto;
     border: 2px solid black;
     border-radius: 5px;
-}
-
-#messages { 
-    padding: 0;
-    border: 0px;
-    position: static;
-}
-
-#messages li {
-    right: 10px;
-    border: none;
-    padding: 1px 10px; 
-    word-wrap: break-word;
 }
 
 #chat {
