@@ -59,7 +59,11 @@ $(function() {
             (container[0].scrollTop + container[0].clientHeight 
              == container[0].scrollHeight);
         
-        container.append('<div class=\'message\'>' + msg + '</div>');
+        var node = document.createElement('div');
+        node.className = "message";
+        var text = document.createTextNode(msg);
+        node.appendChild(text);
+        container.append(node);
         
         if (shouldScrollDown) {
             container[0].scrollTop = container[0].scrollHeight;
