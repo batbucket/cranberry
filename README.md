@@ -1,13 +1,21 @@
 # Cranberry #
+* A single room chat with a synchronized YouTube player.
 
-A browser remake of my very first hackathon project, which was a prototyped synchronized Youtube player with chatroom.
+# Try it out #
+* Note: The chat is unmoderated. User-generated conversations and video submissions will be unpredictable and of varying quality.
+* [https://intense-reef-67811.herokuapp.com](https://intense-reef-67811.herokuapp.com).
+
+# What to do after downloading #
+* Download the dependencies
 
 # Features
 * Chatroom with various commands
 * Client player that is synchronized with a server's timer and YouTube ID
 
 # Plugins used #
-* Socket.IO for networking
+* Node.js
+* EXpress.js
+* Socket.IO
 
 # Chat commands
 Command              | Description | Restrictions | Example
