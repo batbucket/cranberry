@@ -92,6 +92,7 @@ form button {
     height: 80%;
     max-height: inherit;
     overflow: auto;
+    padding: 15px 2px;
     border-top: 1px solid #CFD8DC;
     border-bottom: 1px solid #CFD8DC;
 }
