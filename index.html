@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>Socket.IO chat</title>
+        <title>Cranberry | Synchronized YouTube Video</title>
         <link rel="stylesheet" href="style.css">
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -12,17 +12,27 @@
     <body>
         <div id="main">
             
-            <div id="player"></div>
-            
+            <div id="playerWrap">
+                <div id="playerContainer">
+                    <div id="player"></div>
+                </div>
+            </div>
             <div id="chat">
-                <p id="header">Chat messages</p>
+                <div id="header">
+                    <p id="username"></p>
+                    <div id="population">   
+                        <img id="countImage" src="/icons/person.png">
+                        <p id="count"></p>
+                    </div>
+                </div>
                 <div id="container">
                 </div>
                 <form id="input" action="">
-                    <input id="m" autocomplete="off" />
+                    <textarea id="m" placeholder="Send a message"></textarea>
                     <button id="button">Chat</button>
                 </form>
             </div>
         </div>
+        
     </body>
 </html>

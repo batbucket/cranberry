@@ -1,5 +1,12 @@
 * { 
-    margin: 0; padding: 0; box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+textarea {
+   font-family: inherit;
+   font-size: inherit;
 }
 
 .message {
@@ -7,40 +14,77 @@
     border: none;
     padding: 1px 10px; 
     word-wrap: break-word;
+    color: white;
 }
 
 body { 
     font: 14px Helvetica, Arial; 
+    background-color: black;
 }
 
 form { 
-
-}
-
-form input {
-    padding: 5px; 
-    width: 100%; 
-    margin-right: .5%; 
-    bottom: 100px;
-    border: 2px solid black;
-    border-radius: 5px;
-    vertical-align: middle;
+    text-align: center;
 }
 
 form button { 
-    padding: 5px 15px;
+    color: white;
+    padding: 7.5px 10px;
+    right: 4%;
     display: inline-block;
     width: auto;
     position: relative;
-    border: 2px solid black;
-    border-radius: 5px;
     text-align: center;
+    float: right;
+    background: #607D8B;
+    border: none;
+}
+
+#main {
+    display: block;
+}
+
+#countImage {
+    width:25px;
+    height:25px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#population {
+    position: relative;
+    color: white;
+    width: %;
+    height: 30px;
+    font-size: 15px;
+    display: inline-block;
+    text-align: right;
+    vertical-align: middle;
+}
+
+#count {
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#username {
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    width: 180px;
+    font-size: 20px;
+    color: white;
+    position: relative;
+}
+
+#player {
+    float:  left;
 }
 
 #header {
     text-align: center;
     vertical-align: middle;
-    padding: 10px;
+    padding: 0px;
 }
 
 #container {
@@ -48,17 +92,19 @@ form button {
     height: 80%;
     max-height: inherit;
     overflow: auto;
-    border: 2px solid black;
-    border-radius: 5px;
+    border-top: 1px solid #CFD8DC;
+    border-bottom: 1px solid #CFD8DC;
 }
 
 #chat {
-    position: absolute;
-    right: 10px;
-    width: 300px;
-    height: 100%;
-    padding: 2px;
+    border-left: 1px solid #CFD8DC;
     float: right;
+    background-color: #263238;
+    position: absolute;
+    right: 0px;
+    width: 30%;
+    height: 100%;
+    padding: 5px;
 }
 
 #chat * {
@@ -66,13 +112,33 @@ form button {
 }
 
 #m {
-    width: 220px;
+    padding: 5px;
+    width: 92.5%;
+    max-width: 92.5%;
+    max-height: 80px;
+    background: #37474F;
+    color: white;
+}
+
+#playerWrap {
+    position: absolute;
+    width: 70%;
+    top: 15%;
+    padding: 5px;
+}
+
+#playerContainer {
+    position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
 }
 
 #player {
-    float: left;
-    position: absolute;
-    top: 50%;
-    margin-top: -200px;
-    padding-left: 50px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }

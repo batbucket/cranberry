@@ -1,12 +1,3 @@
-var util = require("./util.js");
-var express = require('express');
-var app = express(); // Function handler supplied to HTTP server 
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
-var currentVideoTime = 0;
-var currentVideoID;
-
 const START_VIDEO_PAD_SECONDS = -3000;
 const MILLISECONDS_TO_SECONDS = 1000;
 const SECONDS_PER_UPDATE = 1000;
@@ -15,6 +6,17 @@ const SET_VIDEO = "/play";
 const SET_COLOR = "/color";
 const MAX_USERNAME_LENGTH = 10;
 const MIN_USERNAME_LENGTH = 3;
+
+var util = require("./util.js");
+var express = require('express');
+var app = express(); // Function handler supplied to HTTP server 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+var currentVideoTime = 0;
+var currentVideoID;
+var connections = 0;
+var currentLoop;
 
 const CHAT_COMMANDS = [
     { 
@@ -30,6 +32,7 @@ const CHAT_COMMANDS = [
                 var oldUserName = socket.userName;
                 socket.userName = userName;
                 io.emit("system message", "{0} became {1}.".format(oldUserName, userName));
+                io.to(sender.id).emit("update username", socket.userName, socket.color);
             }
         }
     },
@@ -48,6 +51,7 @@ const CHAT_COMMANDS = [
         action: function(param, sender) {
             sender.color = param;
             io.to(sender.id).emit("system message", "Changed username color to {0}.".format(sender.color));
+            io.to(sender.id).emit("update username", sender.userName, sender.color);
         }
     },
 ];
@@ -55,32 +59,33 @@ const CHAT_COMMANDS = [
 // Called when hitting website home, allows files to be used
 app.use(express.static(__dirname));
 
-var currentLoop;
-
 io.on('connection', function(socket) {
-    console.log('a user connected');
-    socket.userName = socket.id.substring(0, 6);
-    socket.color = util.getRandomColor();
+    connections++;
+    emitPopulationUpdate();
+    
+    giveNewUserRandomNameAndColor(socket);
+    
     io.emit("system message", "{0} connected.".format(socket.userName));
     
     socket.on('chat message', function(msg) { // func defined in .html
         
-        console.log("message " + msg);
-        
+        // Check if message has any server side commands
         for (var i = 0; i < CHAT_COMMANDS.length; i++) {
-            console.log(CHAT_COMMANDS[i].text);
             if (util.parseCommand(CHAT_COMMANDS[i], { text: msg, sender: socket })) {
-                console.log("released");
                 return;
             }
         }
         
-        emitChatMessage(msg, socket);
+        // No whitespace only messages, also gets rid of multiple spaces between chars
+        if (msg.trim() !== "") {
+            emitChatMessage(msg, socket);
+        }
     });
     
     socket.on('disconnect', function() { // implicit handler
         io.emit("system message", "{0} disconnected.".format(socket.userName));
-        console.log('a user disconnected');
+        connections--;
+        emitPopulationUpdate();
     });
     
     socket.on("request update", function() {
@@ -95,8 +100,19 @@ io.on('connection', function(socket) {
 
 // Server listens to port 3000
 http.listen(process.env.PORT || 3000, function() {
-    console.log('listening on *:3000');
+
 });
+
+function giveNewUserRandomNameAndColor(socket) {
+    socket.userName = socket.id.substring(0, 6);
+    socket.color = util.getRandomColor();
+    io.to(socket.id).emit("update username", socket.userName, socket.color);
+}
+
+// Update counter on every client's page
+function emitPopulationUpdate() {
+    io.emit("update population", connections);
+}
 
 function emitChatMessage(message, sender) {
     var chatMessage = {
@@ -104,11 +120,10 @@ function emitChatMessage(message, sender) {
         author: sender.userName,
         color: sender.color
     };
-    console.log("socket's color: " + sender.color);
-    console.log("sender's color: " + chatMessage.color);
     io.emit('chat message', chatMessage);
 }
 
+// Run server-side timer that clients will sync to
 function startVideo(videoId) {
     currentVideoID = videoId;
     currentVideoTime = START_VIDEO_PAD_SECONDS;
@@ -124,9 +139,9 @@ function startVideo(videoId) {
     );
 }
 
+// Doesn't matter if cases are different, must be unique
 function isUsernameUnique(name) {
     var connectedSockets = util.getListOfSockets(io);
-    console.log(connectedSockets.length);
     for (var i = 0; i < connectedSockets.length; i++) {
         var connectedSocket = connectedSockets[i];
         if (connectedSocket.userName.toLowerCase() === name.toLowerCase()) {

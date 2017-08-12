@@ -3,6 +3,7 @@
  * https://stackoverflow.com/questions/3225251/how-can-i-share-code-between-node-js-and-the-browser
  */
 (function(exports) {
+    // Add string format function if nonexistent
     if (!String.prototype.format) {
       String.prototype.format = function() {
         var args = arguments;
@@ -15,11 +16,18 @@
       };
     }
     
+    // Add trim if nonexistent
+    if (!('trim' in String.prototype)) {
+        String.prototype.trim= function() {
+            return this.replace(/^\s+/, '').replace(/\s+$/, '');
+        };
+    }
+    
+    // Reads a message, and passes the param only to be handled by action
     exports.parseCommand = function(command, message) {
         var text = message.text;
         if (text.toLowerCase().startsWith(command.text.toLowerCase() + " ")) {
             var param = text.substring(command.text.length + 1);
-            console.log("parsed: " + param);
             command.action(param, message.sender);
             return true;
         }
@@ -35,6 +43,7 @@
         return color;
     }
     
+    // Regex obtains youtube video ID
     exports.getVideoID = function(url){
         var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
         var match = url.match(regExp);
@@ -45,6 +54,7 @@
         }
     }
     
+    // Get everyone connected
     exports.getListOfSockets = function(io) {
         let sockets = [];
         try {
@@ -53,8 +63,10 @@
                 sockets.push(io.sockets.connected[id]);
             }
         } catch(e) {
-            console.log(`Attempted to access non-existent room: ${room}`);
+
         }
         return sockets;
     }
+    
+// Part of allowing serverside and clientside use
 }(typeof exports === 'undefined'? this.util = {} : exports));
