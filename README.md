@@ -16,7 +16,7 @@
 
 # Plugins used #
 * Node.js
-* EXpress.js
+* Express.js
 * Socket.IO
 
 # Chat commands
