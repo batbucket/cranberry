@@ -7,6 +7,8 @@
 
 # What to do after downloading #
 * Download the dependencies
+* Call the following in the directory:
+* Node server
 
 # Features
 * Chatroom with various commands
