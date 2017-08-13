@@ -37,6 +37,7 @@ $(function() {
     addSystemMessage("Chat commands can be read at bitbucket.org/eternitylabs/cranberry")
     
     makeTextAreaEnterSubmitContent();
+    document.getElementById("button").onclick = chat;
 
     socket.on('chat message', function(msg) {
         addChatMessage(msg);
