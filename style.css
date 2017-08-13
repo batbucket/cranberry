@@ -35,8 +35,8 @@ form button {
     position: relative;
     text-align: center;
     float: right;
-    background: #607D8B;
-    border: none;
+    background: inherit;
+    border: 1px solid #CFD8DC;
 }
 
 #main {
