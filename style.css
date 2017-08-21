@@ -4,6 +4,11 @@
     box-sizing: border-box; 
 }
 
+a {
+    text-align: center;
+    color: aqua;
+}
+
 textarea {
    font-family: inherit;
    font-size: inherit;

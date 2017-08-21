@@ -34,7 +34,6 @@ const CHAT_COMMANDS = [
 // Called on window load I think??
 $(function() {
     queryServerForVideoUpdate(DEFAULT_QUERY_INTERVAL);
-    addSystemMessage("Chat commands can be read at bitbucket.org/eternitylabs/cranberry")
     
     makeTextAreaEnterSubmitContent();
     document.getElementById("button").onclick = chat;
