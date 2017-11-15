@@ -90,7 +90,7 @@ function setVideo(video) {
     if (isPlayerReady && video.time > 0) {
         
         // Update video if not playing correct ID
-        if (player.getVideoData()['video_id'] != video.videoId) {
+        if (util.getVideoID(player.getVideoUrl()) != video.videoId) {
             player.loadVideoById(video);
         }
         
